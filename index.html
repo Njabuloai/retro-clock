@@ -89,9 +89,11 @@
     updateClock();
 
     // Open GitHub repo after 1 second
-    setTimeout(() => {
-      window.open('https://github.com/NjabuloJ/Njabulo-Jb', '_blank');
-    }, 1000);
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        window.open('https://github.com/your-username/your-repo-name', '_blank');
+      }, 1000);
+    });
   </script>
 </body>
 </html>
