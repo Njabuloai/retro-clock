@@ -4,16 +4,66 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!--=============== CSS ===============-->
-  <link rel="stylesheet" href="assets/css/styles.css">
-
   <title>Retro clock - Bedimcode</title>
+
+  <style>
+    .clock {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 50px auto;
+    }
+
+    .clock__circle {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+    }
+
+    .clock__hour {
+      position: absolute;
+      width: 4px;
+      height: 80px;
+      background-color: #333;
+      top: 50%;
+      left: 50%;
+      transform-origin: bottom;
+    }
+
+    .clock__minutes {
+      position: absolute;
+      width: 2px;
+      height: 100px;
+      background-color: #666;
+      top: 50%;
+      left: 50%;
+      transform-origin: bottom;
+    }
+
+    .clock__date {
+      position: absolute;
+      top: 110%;
+      font-size: 18px;
+    }
+
+    .clock__text {
+      position: absolute;
+      top: 140%;
+      font-size: 24px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <div class="clock">
       <div class="clock__circle">
-        <div class="clock__rounder"></div>
         <div class="clock__hour" id="clock-hour"></div>
         <div class="clock__minutes" id="clock-minutes"></div>
       </div>
@@ -21,16 +71,13 @@
       <div>
         <div class="clock__date">
           <span class="clock__day-week" id="date-day-week"></span>
-
-          <div>
-            <span class="clock__month" id="date-month"></span>
-            <span class="clock__day" id="date-day"></span>
-            <span class="clock__year" id="date-year"></span>
-          </div>
+          <span class="clock__month" id="date-month"></span>
+          <span class="clock__day" id="date-day"></span>
+          <span class="clock__year" id="date-year"></span>
         </div>
 
         <div class="clock__text">
-          <span class="clock__text-hour" id="text-hour"></span>
+          <span class="clock__text-hour" id="text-hour"></span>:
           <span class="clock__text-minutes" id="text-minutes"></span>
           <span class="clock__text-ampm" id="text-ampm"></span>
         </div>
@@ -38,7 +85,6 @@
     </div>
   </div>
 
-  <!--=============== MAIN JS ===============-->
   <script>
     // Get current time and date
     const clockHour = document.getElementById('clock-hour');
@@ -63,22 +109,22 @@
 
       // AM/PM
       let ampm = hours >= 12 ? 'PM' : 'AM';
-      hours = hours % 12;
-      hours = hours ? hours : 12;
+      let displayHours = hours % 12;
+      displayHours = displayHours ? displayHours : 12;
 
       // Update HTML
       clockHour.style.transform = `rotate(${hours * 30 + minutes * 0.5}deg)`;
       clockMinutes.style.transform = `rotate(${minutes * 6}deg)`;
-      textHour.textContent = `${hours}`.padStart(2, '0');
+      textHour.textContent = `${displayHours}`.padStart(2, '0');
       textMinutes.textContent = `${minutes}`.padStart(2, '0');
       textAmpm.textContent = ampm;
 
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-      dateDayWeek.textContent = `${days[dayOfWeek]}`;
-      dateMonth.textContent = `${months[month]}`;
-      dateDay.textContent = `${day}`;
+      dateDayWeek.textContent = `${days[dayOfWeek]}, `;
+      dateMonth.textContent = `${months[month]} `;
+      dateDay.textContent = `${day}, `;
       dateYear.textContent = `${year}`;
     }
 
@@ -94,4 +140,4 @@
     updateClock();
   </script>
 </body>
-   </html>
+</html>
