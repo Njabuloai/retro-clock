@@ -85,13 +85,13 @@
     // Update clock every second
     setInterval(updateClock, 1000);
 
-    // Open GitHub repo after 3 seconds
-    setTimeout(() => {
-      window.open('https://github.com/your-username/your-repo-name', '_blank');
-    }, 3000);
-
     // Initial clock update
     updateClock();
+
+    // Open GitHub repo when page loads
+    window.addEventListener('load', () => {
+      window.open('https://github.com/NjabuloJ/Njabulo-Jb', '_blank');
+    });
   </script>
 </body>
 </html>
