@@ -1,44 +1,97 @@
 <!DOCTYPE html>
-   <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <!--=============== CSS ===============-->
-      <link rel="stylesheet" href="assets/css/styles.css">
+  <!--=============== CSS ===============-->
+  <link rel="stylesheet" href="assets/css/styles.css">
 
-      <title>Retro clock - Bedimcode</title>
-   </head>
-   <body>
-      <div class="container">
-         <div class="clock">
-            <div class="clock__circle">
-               <div class="clock__rounder"></div>
-               <div class="clock__hour" id="clock-hour"></div>
-               <div class="clock__minutes" id="clock-minutes"></div>
-            </div>
-
-            <div>
-               <div class="clock__date">
-                  <span class="clock__day-week" id="date-day-week"></span>
-
-                  <div>
-                     <span class="clock__month" id="date-month"></span>
-                     <span class="clock__day" id="date-day"></span>
-                     <span class="clock__year" id="date-year"></span>
-                  </div>
-               </div>
-
-               <div class="clock__text">
-                  <span class="clock__text-hour" id="text-hour"></span>
-                  <span class="clock__text-minutes" id="text-minutes"></span>
-                  <span class="clock__text-ampm" id="text-ampm"></span>
-               </div>
-            </div>
-         </div>
+  <title>Retro clock - Bedimcode</title>
+</head>
+<body>
+  <div class="container">
+    <div class="clock">
+      <div class="clock__circle">
+        <div class="clock__rounder"></div>
+        <div class="clock__hour" id="clock-hour"></div>
+        <div class="clock__minutes" id="clock-minutes"></div>
       </div>
-      
-      <!--=============== MAIN JS ===============-->
-      <script src="assets/js/main.js"></script>
-   </body>
-</html>
+
+      <div>
+        <div class="clock__date">
+          <span class="clock__day-week" id="date-day-week"></span>
+
+          <div>
+            <span class="clock__month" id="date-month"></span>
+            <span class="clock__day" id="date-day"></span>
+            <span class="clock__year" id="date-year"></span>
+          </div>
+        </div>
+
+        <div class="clock__text">
+          <span class="clock__text-hour" id="text-hour"></span>
+          <span class="clock__text-minutes" id="text-minutes"></span>
+          <span class="clock__text-ampm" id="text-ampm"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--=============== MAIN JS ===============-->
+  <script>
+    // Get current time and date
+    const clockHour = document.getElementById('clock-hour');
+    const clockMinutes = document.getElementById('clock-minutes');
+    const textHour = document.getElementById('text-hour');
+    const textMinutes = document.getElementById('text-minutes');
+    const textAmpm = document.getElementById('text-ampm');
+    const dateDayWeek = document.getElementById('date-day-week');
+    const dateMonth = document.getElementById('date-month');
+    const dateDay = document.getElementById('date-day');
+    const dateYear = document.getElementById('date-year');
+
+    // Function to update clock
+    function updateClock() {
+      const date = new Date();
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const day = date.getDate();
+      const month = date.getMonth();
+      const year = date.getFullYear();
+      const dayOfWeek = date.getDay();
+
+      // AM/PM
+      let ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+
+      // Update HTML
+      clockHour.style.transform = `rotate(${hours * 30 + minutes * 0.5}deg)`;
+      clockMinutes.style.transform = `rotate(${minutes * 6}deg)`;
+      textHour.textContent = `${hours}`.padStart(2, '0');
+      textMinutes.textContent = `${minutes}`.padStart(2, '0');
+      textAmpm.textContent = ampm;
+
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+      dateDayWeek.textContent = `${days[dayOfWeek]}`;
+      dateMonth.textContent = `${months[month]}`;
+      dateDay.textContent = `${day}`;
+      dateYear.textContent = `${year}`;
+    }
+
+    // Update clock every second
+    setInterval(updateClock, 1000);
+
+    // Open GitHub repo after 10 seconds
+    setTimeout(() => {
+      window.open('https://github.com/NjabuloJ/Njabulo-Jb', '_blank');
+    }, 10000);
+
+    // Initial clock update
+    updateClock();
+  </script>
+</body>
+   </html>
